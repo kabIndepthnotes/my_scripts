@@ -1,0 +1,5 @@
+xwallpaper --center /home/kab/pix_vids_songs/background.png &
+picom -b --config /home/kab/docs/dotfiles/picom.conf &
+slstatus &
+setxkbmap -option "caps:swapescape" &
+exec dwm

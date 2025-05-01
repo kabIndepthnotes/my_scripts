@@ -1,0 +1,5 @@
+#!/bin/bash
+# file_found=$(echo files | grep -P  -e $1)
+# echo $file_found
+ls -1 $HOME/docs/indepthwiki/ | grep $1 | cat -n
+

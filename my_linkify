@@ -1,0 +1,4 @@
+#!/bin/bash
+file=$1
+dezet=$(mydezetelify $1)
+echo -n "[${dezet}](${file})"

@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ${HOME}/applications/blender-4.2.8-linux-x64/
+./blender

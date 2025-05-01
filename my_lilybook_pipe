@@ -1,0 +1,6 @@
+#!/bin/bash
+timestamp=$(date "+___%Y%m%d_%H%M_%S")
+input=$1
+lilypond --svg -o${HOME}/docs/indepthwiki/figures/${input}${timestamp} -  \
+	&> /tmp/lilypond_log.txt
+	echo "![$input](figures/${input}${timestamp}.svg)"

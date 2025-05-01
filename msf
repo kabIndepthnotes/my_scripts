@@ -1,0 +1,30 @@
+#!/bin/bash
+
+TAG="$1"
+ZETS=$(grep -PRnl "${HOME}/docs/indepthwiki/" --include=[A-Za-z]*.pd -e "$TAG" | shuf)
+INPUT=""
+
+get_input() {
+	read -p "Press q to quit, anything else to go to the editor and continue: " INPUT
+	if [[ $INPUT == [qQ] ]]
+	then
+		exit 1
+	else
+		$EDITOR "$1"
+		read -p "moving to the next card after key press"
+	fi
+}
+
+for I in $ZETS
+do
+	printf "CUE\n"
+	printf "###\n"
+	printf "%s\n" "$I"
+
+	grep -P "^#.*" "$I"
+	grep -Po ".*:=" "$I"
+	grep -Po ".*:-" "$I"
+	grep -Po ".*:~" "$I"
+	get_input "$I"
+	printf "######\n"
+done

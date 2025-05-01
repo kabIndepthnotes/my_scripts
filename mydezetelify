@@ -1,0 +1,7 @@
+#!/bin/bash
+# do the reverse of zetelify
+
+zetel=$1
+name=$(echo $zetel | perl -pe 's/(\S+)(___).*/\1/')
+
+echo -n $name

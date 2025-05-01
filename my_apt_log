@@ -1,0 +1,7 @@
+#!/bin/bash
+INPUT=$1
+MY_APT_COM="sudo apt install $1"
+
+echo $MY_APT_COM >> ${HOME}/applications/list
+echo $MY_APT_COM
+echo $MY_APT_COM | xsel -b

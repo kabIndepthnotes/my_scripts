@@ -1,0 +1,4 @@
+#!/bin/bash
+/home/kab/applications/pomo/pomo.sh stop
+/home/kab/applications/pomo/pomo.sh start
+/home/kab/applications/pomo/pomo.sh notify
