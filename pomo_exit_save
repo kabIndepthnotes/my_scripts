@@ -1,0 +1,8 @@
+#!/bin/bash
+clock=$(/home/kab/applications/pomo/pomo.sh clock)
+time_left=$(echo $clock| sed "s/^W\([0-9].\).*$/\1/g")
+time_spent=$(qalc -t "50 - $time_left")
+echo "$(date +"%a %d %b %Y %k:%m")	${time_spent}	UNVERIFIED" >> ${HOME}/docs/measures/pomos
+
+/home/kab/applications/pomo/pomo.sh stop
+echo "pomo_exit_save executed!" >> /tmp/trap_test.log

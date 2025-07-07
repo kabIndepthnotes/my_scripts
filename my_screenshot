@@ -1,0 +1,19 @@
+#!/bin/bash
+col_gray1="#222222"
+col_blue="#4070c2"
+col_gray3="#bacaf0"
+col_gray4="#212638"
+col_yellow="#ffd51c"
+
+screenshot_dir="${HOME}/pix_vids_songs/screenshots"
+# take screen shot save in tmp
+scrot -s "${screenshot_dir}/current.png"
+
+# dmenu for name of screenshot (name1)
+timestamp=$(date "+%Y%m%d_%H%M_%S")
+name=$(echo "screenshot" | dmenu -fn "Iosevka Term SS18:pixelsize=20:antialias=true:autohint=true" -nb $col_gray1 -nf $col_gray3 -sb $col_yellow -sf $col_gray4 -p "screenshot name:")
+
+
+# save in screenshots dir with timestamp (timestamp___name1)
+mv ${screenshot_dir}/current.png ${screenshot_dir}/${timestamp}___${name}.png
+

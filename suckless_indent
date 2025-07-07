@@ -1,0 +1,6 @@
+#!/bin/bash
+# TODO
+# indent a.c -brs -nprs -npcs -i8 -fc1 -br -brf -nsaf -nsai -nsaw -ncs \
+# -nfca -il0 -ce -nss -c0 -cd0 -ut -o out.c
+# sed -E -i 's/([^\t]+)\t+\/\*/\1 \/*/g' out.c # space comments
+# sed -i 's/switch (/switch(/g' out.c # simulate -nsas

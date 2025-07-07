@@ -1,0 +1,7 @@
+#!/bin/bash
+screen_shown=$(cat /tmp/screen_shown.txt)
+if [[ $screen_shown -eq 1 ]]; then
+	echo "📸"
+else
+	echo "🚫"
+fi

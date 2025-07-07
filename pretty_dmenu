@@ -1,0 +1,28 @@
+#!/bin/bash
+# Broken
+col_gray1="#222222"
+col_blue="#4070c2"
+col_gray3="#bacaf0"
+col_gray4="#212638"
+col_yellow="#ffd51c"
+
+
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -p)
+      prompt="$2"
+      shift # past argument
+      shift # past value
+      ;;
+  esac
+done
+
+# if the prompt is set use it
+if [ -z "$prompt" ]
+then
+	dmenu -fn "Iosevka Term SS18:pixelsize=20:antialias=true:autohint=true" -nb $col_gray1 -nf $col_gray3 -sb $col_yellow -sf $col_gray4
+else
+	dmenu -fn "Iosevka Term SS18:pixelsize=20:antialias=true:autohint=true" -nb $col_gray1 -nf $col_gray3 -sb $col_yellow -sf $col_gray4 -p $prompt
+fi
+

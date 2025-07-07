@@ -1,4 +1,6 @@
 #!/bin/bash
+# set -x
+trap 'bash /home/kab/docs/my_scripts/pomo_exit_save' EXIT
 /home/kab/applications/pomo/pomo.sh stop
 /home/kab/applications/pomo/pomo.sh start
 /home/kab/applications/pomo/pomo.sh notify

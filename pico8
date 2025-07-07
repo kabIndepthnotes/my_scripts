@@ -1,0 +1,2 @@
+#!/bin/bash
+~/applications/pico-8/pico8 -home ~/applications/pico-8/lexaloffle/
