@@ -1,8 +1,23 @@
 #!/bin/bash
 clock=$(/home/kab/applications/pomo/pomo.sh clock)
-time_left=$(echo $clock| sed "s/^W\([0-9].\).*$/\1/g")
+time_left=$(echo $clock|sed "s/^W\([0-9].\).*$/\1/g")
 time_spent=$(qalc -t "50 - $time_left")
-echo "$(date +"%a %d %b %Y %k:%m")	${time_spent}	UNVERIFIED" >> ${HOME}/docs/measures/pomos
+# echo "$time_left"
+
+if tail "${HOME}/docs/measures/pomos" -n 1 | grep "$(date +"%a %d %b %Y")"; then
+	echo "if"
+	last=$(tail "${HOME}/docs/measures/pomos" -n 1)
+	col2=$(echo "$last" | awk -F "\t" '{print $2}')+${time_spent}
+	col3=$(qalc -t "$(echo "$last" | awk -F "\t" '{print $3}') + ${time_spent}")
+	# echo "time: ${time_spent}"
+	# echo "last: ${last}"
+	# echo "col2: ${col2}	col3: ${col3}"
+	sed -i '$d' "${HOME}/docs/measures/pomos"
+	echo "$(date +"%a %d %b %Y")	${col2}	${col3}" >> ${HOME}/docs/measures/pomos
+else
+	# echo "else"
+	echo "$(date +"%a %d %b %Y")	${time_spent}	${time_spent}" >> "${HOME}/docs/measures/pomos"
+fi
 
 /home/kab/applications/pomo/pomo.sh stop
 echo "pomo_exit_save executed!" >> /tmp/trap_test.log
