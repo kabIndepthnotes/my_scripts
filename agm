@@ -2,20 +2,29 @@
 # ai git message
 
 prompt=$(echo "You are an expert at following the Conventional Commit specification. \n Given the git diff listed below, please generate a commit message for me. \n Do not use code fences (\`\`\`) in your response:")
+# echo "prompt : $prompt" # debug
 
 # diff | remove newlines | prevent json injections
-gdiff=$(git diff --no-ext-diff --staged | sed -z 's/\n/\\n/g' | jq -Rs)
+gdiff=$(git diff --no-ext-diff --staged | sed -z 's/\n/\\n/g'| jq -Rs)
+# echo "gdiff : $gdiff" # debug
 
+json_payload=$(jq -n \
+  --arg prompt "$prompt" \
+  --arg gdiff "$gdiff" \
+  '{
+    "model": "deepseek/deepseek-chat-v3-0324:free",
+    "messages": [
+      {
+        "role": "user",
+        "content": ($prompt + " " + $gdiff)
+      }
+    ]
+  }')
 
 res=$(curl -s https://openrouter.ai/api/v1/chat/completions -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-  -d '{ "model": "deepseek/deepseek-chat-v3-0324:free",
-  "messages": [
-    {
-      "role": "user",
-      "content": "'"$prompt $gdiff"'"
-    }
-  ]
-}')
+  -d "$json_payload")
+# echo "$res" # debug
 
-echo "$res" | jq '.choices[0].message.content' | sed 's/\\n/\n/g'
+echo "$res" | jq -r '.choices[0].message.content' | sed 's/\\n/\n/g'
+
