@@ -1,0 +1,5 @@
+#!/bin/bash
+rclone sync --interactive /home/kab/docs/game_dev/games/godot main:godot
+rclone sync --interactive /home/kab/docs/game_dev/music/music_50_perc/lmms/ main:lmms
+rclone sync --interactive /home/kab/docs/game_dev/art/art_50_perc/ main:art
+
