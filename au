@@ -1,14 +1,22 @@
 #!/bin/bash
 # credit to budlabs https://www.youtube.com/@dubbeltumme
 
-SCRIPT_FOLDER="$HOME/docs/my_scripts/"
-SCRIPT_FILE="$SCRIPT_FOLDER/$1"
+script_folder="$HOME/docs/my_scripts"
+script_file="$script_folder/$1"
 
-if [[ -f $SCRIPT_FILE ]]; then
+if [[ -f "$script_file" ]]; then
 	echo file already exists
 else
-	echo '#!/bin/bash' > $SCRIPT_FILE
-	chmod +x $SCRIPT_FILE
+	echo '#!/bin/bash' > "$script_file"
+	chmod +x "$script_file"
 fi
 
-$EDITOR $SCRIPT_FILE
+$EDITOR "$script_file"
+
+# delete empty scripts
+check_file="/tmp/cmp.txt"
+echo '#!/bin/bash' > "$check_file"
+cmp --silent "$script_file" "$check_file" && {
+	rm "$script_file"
+	echo "removed empty $script_file"
+}
