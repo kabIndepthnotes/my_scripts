@@ -1,0 +1,30 @@
+#!/bin/bash
+# usb dismount
+# Credit: https://raw.githubusercontent.com/LukeSmithxyz/voidrice/refs/heads/master/.local/bin/unmounter
+
+# Unmount USB drives or Android phones. Replaces the older `dmenuumount`. Fewer
+# prompt and also de-decrypts LUKS drives that are unmounted.
+
+set -e
+
+mounteddrives="$(
+    lsblk -nrpo NAME,TYPE,SIZE,MOUNTPOINT |
+    awk '
+        ($2=="part" || $2=="crypt") &&
+        length($4)>1 &&
+        $4 !~ /^\/boot$/ &&
+        $4 !~ /^\/home$/ {
+            printf "%s (%s) %s\n", $1, $3, $4
+        }
+    '
+)"
+
+chosen="$(printf '%s\n' "$mounteddrives" | dmenu -i -p "Unmount which drive?")"
+[ -n "$chosen" ] || exit 0
+
+device="${chosen%% *}"
+
+test -n "$device"
+
+udisksctl unmount -b "$device"
+

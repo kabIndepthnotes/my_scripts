@@ -1,0 +1,32 @@
+#!/bin/bash
+# usb mount
+
+IFS='
+'
+# Functioning for formatting drives correctly for dmenu:
+filter() { sed "s/ /:/g" | awk -F':' '$6==""{printf "%s (%s) %s\n",$2,$4,$5}' ; }
+# filter() { sed "s/ /:/g";}
+
+# Check for drives.
+lsblkoutput="$(lsblk -rpo "uuid,name,type,size,label,mountpoint,fstype")"
+
+# Get all normal, non-encrypted or decrypted partitions that are not mounted.
+normalparts="$(echo "$lsblkoutput"| grep -v crypto_LUKS | grep 'part\|rom\|crypt'| filter )"
+
+# echo "$normalparts"
+# exit
+
+# Feed all found drives to dmenu and get user choice.
+chosen="$(echo "$normalparts" | dmenu -p "Mount which drive?" -i)"
+
+# Quit the script if a sequential command fails.
+set -e
+
+
+chosen="${chosen%% *}"
+
+# Attempt to mount without a mountpoint, to see if drive is in fstab.
+# sudo -A mount "$chosen" || return 1
+#
+test -n "$chosen"
+udisksctl mount -b "$chosen"
