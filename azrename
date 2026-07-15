@@ -1,13 +1,34 @@
 #!/bin/bash
+# azrename: rename files to be more appropriate
 for file in *;do mv --backup=t -v "$file" "$(echo "$file" | tr "[:upper:]" "[:lower:]")" ;done;
 rename.ul "[" "" -a -i -- *
 rename.ul "]" "" -a -i -- *
 rename.ul "(" "" -a -i -- *
 rename.ul ")" "" -a -i -- *
-rename.ul "_" "" -a -i -- *
 rename.ul "-" "" -a -i -- *
-rename.ul " " "" -a -i -- *
-rename.ul "|" "" -a -i -- *
+rename.ul "_" "" -a -i -- *
+rename.ul "|" "_" -a -i -- *
 rename.ul "{" "" -a -i -- *
 rename.ul "}" "" -a -i -- *
+rename.ul "|" "" -a -i -- *
+rename.ul "“" "" -a -i -- *
+rename.ul "”" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+# rename.ul "“" "" -a -i -- *
+
+
+
+
+
+
+
+
+
+
 
