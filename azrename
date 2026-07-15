@@ -1,0 +1,13 @@
+#!/bin/bash
+for file in *;do mv --backup=t -v "$file" "$(echo "$file" | tr "[:upper:]" "[:lower:]")" ;done;
+rename.ul "[" "" -a -i -- *
+rename.ul "]" "" -a -i -- *
+rename.ul "(" "" -a -i -- *
+rename.ul ")" "" -a -i -- *
+rename.ul "_" "" -a -i -- *
+rename.ul "-" "" -a -i -- *
+rename.ul " " "" -a -i -- *
+rename.ul "|" "" -a -i -- *
+rename.ul "{" "" -a -i -- *
+rename.ul "}" "" -a -i -- *
+
