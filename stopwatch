@@ -1,0 +1,13 @@
+#!/bin/bash
+# credit: https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
+
+start=$(date +%s)
+time=0
+
+trap 'echo -e "\n\ntotal time: $(date -u -d "@$time" +%H:%M:%S)"' EXIT
+
+while true; do
+	time="$(($(date +%s) - $start))"
+	printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+	sleep 1
+done
